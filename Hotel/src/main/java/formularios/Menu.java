@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Formularios;
+package formularios;
 
 /**
  *
@@ -38,7 +38,6 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(750, 575));
 
         detokAD.setPreferredSize(new java.awt.Dimension(750, 575));
 
@@ -46,11 +45,11 @@ public class Menu extends javax.swing.JFrame {
         detokAD.setLayout(detokADLayout);
         detokADLayout.setHorizontalGroup(
             detokADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGap(0, 888, Short.MAX_VALUE)
         );
         detokADLayout.setVerticalGroup(
             detokADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 671, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Opcion");
@@ -131,14 +130,18 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(detokAD, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
+                .addComponent(detokAD, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(detokAD, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(detokAD, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        pack();
+        setSize(new java.awt.Dimension(914, 707));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

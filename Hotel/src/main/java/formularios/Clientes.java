@@ -2,15 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Formularios;
+package formularios;
 
-import Conexion.Conexion;
+import conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import reportes.ExportarReporte;
+import utils.Utils;
 
 /**
  *
@@ -60,6 +62,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         txttelefono = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtcorreo = new javax.swing.JTextField();
+        btcExportarReporte = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -128,6 +131,13 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jLabel8.setText("NIT");
 
+        btcExportarReporte.setText("Generar Reporte");
+        btcExportarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcExportarReporteActionPerformed(evt);
+            }
+        });
+
         jMenuBar1.setMaximumSize(new java.awt.Dimension(300, 800));
         jMenuBar1.setMinimumSize(new java.awt.Dimension(300, 800));
 
@@ -151,35 +161,27 @@ public class Clientes extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(BtnGuardar)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(BtnModificar)
-                                .addGap(35, 35, 35)
-                                .addComponent(BtnEliminar))
-                            .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(20, 20, 20))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtidCliente, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtnit)
-                                    .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                                    .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtciudad, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtcorreo, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtcorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(54, 54, 54)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -197,23 +199,29 @@ public class Clientes extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtfechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnConsultar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(216, 216, 216)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(txtfechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(179, 179, 179)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(BtnGuardar)
+                                .addGap(55, 55, 55)
+                                .addComponent(BtnModificar)
+                                .addGap(65, 65, 65)
+                                .addComponent(BtnEliminar)
+                                .addGap(81, 81, 81)
+                                .addComponent(BtnConsultar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(btcExportarReporte)))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnConsultar, BtnEliminar, BtnGuardar, BtnModificar});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,16 +261,16 @@ public class Clientes extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtfechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(52, 52, 52)
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(90, 90, 90))
+                    .addComponent(BtnGuardar)
+                    .addComponent(BtnModificar)
+                    .addComponent(BtnEliminar)
+                    .addComponent(BtnConsultar))
+                .addGap(39, 39, 39)
+                .addComponent(btcExportarReporte)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnConsultar, BtnEliminar, BtnGuardar, BtnModificar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -294,11 +302,8 @@ public class Clientes extends javax.swing.JInternalFrame {
                 pr.setString(7, txtnit.getText());
                 pr.setDate(8, java.sql.Date.valueOf(txtfechaRegistro.getText()));
 
-                String mensaje = "<html><p>"
-                        + "Los datos del cliente han sido guardados exitosamente."
-                        + "</p></html>";
                 pr.executeUpdate();
-                JOptionPane.showMessageDialog(null, mensaje);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Los datos del cliente han sido guardados exitosamente."));
 
                 //Limpiar campos
                 txtnombre.setText("");
@@ -497,6 +502,12 @@ public class Clientes extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void btcExportarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcExportarReporteActionPerformed
+        ExportarReporte exportar = new ExportarReporte();
+        String qry = Utils.leerQueryDesdeArchivo("reporte-clientes.sql");
+        exportar.exportarPdfComoTabla(qry, "Reporte Clientes.pdf", "Clientes: ");
+    }//GEN-LAST:event_btcExportarReporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -506,6 +517,7 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnModificar;
+    private javax.swing.JButton btcExportarReporte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

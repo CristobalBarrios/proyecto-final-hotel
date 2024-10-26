@@ -2,31 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Formularios;
-import Conexion.Conexion;
+package formularios;
+
+import conexion.Conexion;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import reportes.ExportarReporte;
+import utils.Utils;
+
 /**
  *
  * @author hecto
  */
 public class Factura extends javax.swing.JInternalFrame {
-Connection conn = null;
+
+    Connection conn = null;
     Conexion Conect = new Conexion();
     String qry = "";
     ResultSet rs = null;
     PreparedStatement pr = null;
-    
+
     public Factura() {
         initComponents();
-        
+
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +59,7 @@ Connection conn = null;
         jScrollPane1 = new javax.swing.JScrollPane();
         txtdetalleFactura = new javax.swing.JTextArea();
         btnEmitirFactura = new javax.swing.JButton();
+        btcExportarReporte = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -122,6 +127,13 @@ Connection conn = null;
             }
         });
 
+        btcExportarReporte.setText("Generar Reporte");
+        btcExportarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcExportarReporteActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -147,17 +159,23 @@ Connection conn = null;
                         .addGap(275, 275, 275)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtidFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(BtnGuardar))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
@@ -168,7 +186,7 @@ Connection conn = null;
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtidReservacion, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                            .addComponent(txtidReservacion, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                             .addComponent(txtmontoTotal)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -178,21 +196,23 @@ Connection conn = null;
                                                 .addGap(0, 0, Short.MAX_VALUE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(txtfechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(212, 212, 212)))))))
+                                                .addGap(212, 212, 212))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(BtnModificar)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(BtnEliminar)
+                                                .addGap(18, 18, 18))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(btcExportarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(8, 8, 8)))
+                                        .addComponent(BtnConsultar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnEmitirFactura)))))
                         .addGap(46, 46, 46)))
                 .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(BtnGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(BtnModificar)
-                .addGap(18, 18, 18)
-                .addComponent(BtnEliminar)
-                .addGap(26, 26, 26)
-                .addComponent(BtnConsultar)
-                .addGap(18, 18, 18)
-                .addComponent(btnEmitirFactura)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnConsultar, BtnEliminar, BtnGuardar, BtnModificar, btnEmitirFactura});
@@ -201,7 +221,7 @@ Connection conn = null;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -237,7 +257,9 @@ Connection conn = null;
                     .addComponent(BtnEliminar)
                     .addComponent(BtnConsultar)
                     .addComponent(btnEmitirFactura))
-                .addGap(80, 80, 80))
+                .addGap(26, 26, 26)
+                .addComponent(btcExportarReporte)
+                .addGap(27, 27, 27))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {BtnConsultar, BtnEliminar, BtnGuardar, BtnModificar, btnEmitirFactura});
@@ -251,172 +273,188 @@ Connection conn = null;
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
         // TODO add your handling code here: guardar de
-      try {
-        conn = Conect.getConnection();
-        if (conn != null) {
-            // Consulta SQL para insertar una nueva factura
-            String qry = "INSERT INTO facturas (ID_reservacion, ID_cliente, monto_total, detalles_factura) VALUES (?,?,?,?)";
-            pr = conn.prepareStatement(qry);
-            
-            // Asigna los valores
-            pr.setInt(1, Integer.parseInt(txtidReservacion.getText()));  
-            pr.setInt(2, Integer.parseInt(txtidCliente.getText()));     
-            pr.setBigDecimal(3, new BigDecimal(txtmontoTotal.getText()));
-            pr.setString(4, txtdetalleFactura.getText());                
-            pr.executeUpdate();
-            JOptionPane.showMessageDialog(null, "La factura ha sido guardada exitosamente.");
-            
-            // Limpiar campos del formulario
-            txtidReservacion.setText("");
-            txtidCliente.setText("");
-            txtmontoTotal.setText("");
-            txtdetalleFactura.setText("");
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (SQLException sqle) {
-        JOptionPane.showMessageDialog(null, "Error al guardar la factura: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } catch (NumberFormatException nfe) {
-        JOptionPane.showMessageDialog(null, "Error en el formato de los datos: Verifique los valores ingresados.", "Error de formato", JOptionPane.WARNING_MESSAGE);
-    } finally {
         try {
-            if (conn != null) conn.close();
+            conn = Conect.getConnection();
+            if (conn != null) {
+                // Consulta SQL para insertar una nueva factura
+                String qry = "INSERT INTO facturas (ID_reservacion, ID_cliente, monto_total, detalles_factura) VALUES (?,?,?,?)";
+                pr = conn.prepareStatement(qry);
+
+                // Asigna los valores
+                pr.setInt(1, Integer.parseInt(txtidReservacion.getText()));
+                pr.setInt(2, Integer.parseInt(txtidCliente.getText()));
+                pr.setBigDecimal(3, new BigDecimal(txtmontoTotal.getText()));
+                pr.setString(4, txtdetalleFactura.getText());
+                pr.executeUpdate();
+                JOptionPane.showMessageDialog(null, "La factura ha sido guardada exitosamente.");
+
+                // Limpiar campos del formulario
+                txtidReservacion.setText("");
+                txtidCliente.setText("");
+                txtmontoTotal.setText("");
+                txtdetalleFactura.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar la factura: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Error en el formato de los datos: Verifique los valores ingresados.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException sqle) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
 
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         // TODO add your handling code here: modificar
-         try {
-        conn = Conect.getConnection();  
-
-        String idFactura = txtidFactura.getText();  
-
-        if (idFactura != null && !idFactura.trim().isEmpty()) {
-            // Consulta SQL para actualizar la factura
-            String qry = "UPDATE facturas SET ID_reservacion=?, ID_cliente=?, monto_total=?, fecha_emision=?, detalles_factura=? WHERE ID_factura=?";
-            pr = conn.prepareStatement(qry);
-
-            // Asignar los valores actualizados
-            pr.setInt(1, Integer.parseInt(txtidReservacion.getText()));  
-            pr.setInt(2, Integer.parseInt(txtidCliente.getText()));  
-            pr.setDouble(3, Double.parseDouble(txtmontoTotal.getText()));  
-            pr.setString(4, txtfechaEmision.getText()); 
-            pr.setString(5, txtdetalleFactura.getText());  
-            pr.setInt(6, Integer.parseInt(idFactura)); 
-
-            int rowsAffected = pr.executeUpdate();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Factura modificada exitosamente.");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
         try {
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
+            conn = Conect.getConnection();
+
+            String idFactura = txtidFactura.getText();
+
+            if (idFactura != null && !idFactura.trim().isEmpty()) {
+                // Consulta SQL para actualizar la factura
+                String qry = "UPDATE facturas SET ID_reservacion=?, ID_cliente=?, monto_total=?, fecha_emision=?, detalles_factura=? WHERE ID_factura=?";
+                pr = conn.prepareStatement(qry);
+
+                // Asignar los valores actualizados
+                pr.setInt(1, Integer.parseInt(txtidReservacion.getText()));
+                pr.setInt(2, Integer.parseInt(txtidCliente.getText()));
+                pr.setDouble(3, Double.parseDouble(txtmontoTotal.getText()));
+                pr.setString(4, txtfechaEmision.getText());
+                pr.setString(5, txtdetalleFactura.getText());
+                pr.setInt(6, Integer.parseInt(idFactura));
+
+                int rowsAffected = pr.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Factura modificada exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
+            }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-}
 
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
         // TODO add your handling code here: eliminiar 
-          try {
-        conn = Conect.getConnection();  
-
-        String idFactura = txtidFactura.getText();  
-
-        if (idFactura != null && !idFactura.trim().isEmpty()) {
-            // Consulta SQL para eliminar la factura
-            String qry = "DELETE FROM facturas WHERE ID_factura=?";
-            pr = conn.prepareStatement(qry);
-            pr.setInt(1, Integer.parseInt(idFactura));
-
-            int rowsAffected = pr.executeUpdate();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Factura eliminada exitosamente.");
-                // Limpiar los campos después de la eliminación
-                txtidReservacion.setText("");
-                txtidCliente.setText("");
-                txtmontoTotal.setText("");
-                txtfechaEmision.setText("");
-                txtdetalleFactura.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
         try {
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
+            conn = Conect.getConnection();
+
+            String idFactura = txtidFactura.getText();
+
+            if (idFactura != null && !idFactura.trim().isEmpty()) {
+                // Consulta SQL para eliminar la factura
+                String qry = "DELETE FROM facturas WHERE ID_factura=?";
+                pr = conn.prepareStatement(qry);
+                pr.setInt(1, Integer.parseInt(idFactura));
+
+                int rowsAffected = pr.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Factura eliminada exitosamente.");
+                    // Limpiar los campos después de la eliminación
+                    txtidReservacion.setText("");
+                    txtidCliente.setText("");
+                    txtmontoTotal.setText("");
+                    txtfechaEmision.setText("");
+                    txtdetalleFactura.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
+            }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
- 
-         }
 
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
         // TODO add your handling code here:consultar
         try {
-        conn = Conect.getConnection();  
+            conn = Conect.getConnection();
 
-        String idFactura = txtidFactura.getText();  
+            String idFactura = txtidFactura.getText();
 
-        if (idFactura != null && !idFactura.trim().isEmpty()) {
-            // Consulta para obtener los datos de la factura
-            String qry = "SELECT * FROM facturas WHERE ID_factura=?";
-            pr = conn.prepareStatement(qry);
-            pr.setInt(1, Integer.parseInt(idFactura));
+            if (idFactura != null && !idFactura.trim().isEmpty()) {
+                // Consulta para obtener los datos de la factura
+                String qry = "SELECT * FROM facturas WHERE ID_factura=?";
+                pr = conn.prepareStatement(qry);
+                pr.setInt(1, Integer.parseInt(idFactura));
 
-            rs = pr.executeQuery();
+                rs = pr.executeQuery();
 
-            if (rs.next()) {
-                // Mostrar los datos de la factura
-                txtidReservacion.setText(rs.getString("ID_reservacion"));
-                txtidCliente.setText(rs.getString("ID_cliente"));
-                txtmontoTotal.setText(rs.getString("monto_total"));
-                txtfechaEmision.setText(rs.getString("fecha_emision"));
-                txtdetalleFactura.setText(rs.getString("detalles_factura"));
-                
-                JOptionPane.showMessageDialog(null, "Factura encontrada.");
+                if (rs.next()) {
+                    // Mostrar los datos de la factura
+                    txtidReservacion.setText(rs.getString("ID_reservacion"));
+                    txtidCliente.setText(rs.getString("ID_cliente"));
+                    txtmontoTotal.setText(rs.getString("monto_total"));
+                    txtfechaEmision.setText(rs.getString("fecha_emision"));
+                    txtdetalleFactura.setText(rs.getString("detalles_factura"));
+
+                    JOptionPane.showMessageDialog(null, "Factura encontrada.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-}
 
-        
+
     }//GEN-LAST:event_BtnConsultarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -427,77 +465,90 @@ Connection conn = null;
     private void btnEmitirFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirFacturaActionPerformed
         // TODO add your handling code here:
         try {
-        conn = Conect.getConnection(); 
+            conn = Conect.getConnection();
 
-        String idFactura = txtidFactura.getText();  
+            String idFactura = txtidFactura.getText();
 
-        if (idFactura != null && !idFactura.trim().isEmpty()) {
-            // Consulta para obtener los datos de la factura y el cliente
-            String qry = "SELECT f.ID_factura, f.monto_total, f.fecha_emision, f.detalles_factura, "
-                       + "c.nombre, c.apellido, c.NIT, c.direccion, c.telefono "
-                       + "FROM facturas f "
-                       + "JOIN cliente c ON f.ID_cliente = c.ID_cliente "
-                       + "WHERE f.ID_factura = ?";
-            
-            pr = conn.prepareStatement(qry);
-            pr.setInt(1, Integer.parseInt(idFactura));
+            if (idFactura != null && !idFactura.trim().isEmpty()) {
+                // Consulta para obtener los datos de la factura y el cliente
+                String qry = "SELECT f.ID_factura, f.monto_total, f.fecha_emision, f.detalles_factura, "
+                        + "c.nombre, c.apellido, c.NIT, c.direccion, c.telefono "
+                        + "FROM facturas f "
+                        + "JOIN cliente c ON f.ID_cliente = c.ID_cliente "
+                        + "WHERE f.ID_factura = ?";
 
-            rs = pr.executeQuery();
+                pr = conn.prepareStatement(qry);
+                pr.setInt(1, Integer.parseInt(idFactura));
 
-            if (rs.next()) {
-                // Obtener los datos de la factura y el cliente
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                String nit = rs.getString("NIT");
-                String direccion = rs.getString("direccion");
-                String telefono = rs.getString("telefono");
-                String detallesFactura = rs.getString("detalles_factura");
-                double montoTotal = rs.getDouble("monto_total");
-                String fechaEmision = rs.getString("fecha_emision");
+                rs = pr.executeQuery();
 
-                // Mostrar los datos de la factura en un cuadro de diálogo
-                JOptionPane.showMessageDialog(null, 
-                    "Factura emitida:\n" +
-                    "Cliente: " + nombre + " " + apellido + "\n" +
-                    "NIT: " + nit + "\n" +
-                    "Dirección: " + direccion + "\n" +
-                    "Teléfono: " + telefono + "\n" +
-                    "Detalles: " + detallesFactura + "\n" +
-                    "Monto Total: Q" + montoTotal + "\n" +
-                    "Fecha de Emisión: " + fechaEmision,
-                    "Factura Emitida",
-                    JOptionPane.INFORMATION_MESSAGE
-                );
+                if (rs.next()) {
+                    // Obtener los datos de la factura y el cliente
+                    String nombre = rs.getString("nombre");
+                    String apellido = rs.getString("apellido");
+                    String nit = rs.getString("NIT");
+                    String direccion = rs.getString("direccion");
+                    String telefono = rs.getString("telefono");
+                    String detallesFactura = rs.getString("detalles_factura");
+                    double montoTotal = rs.getDouble("monto_total");
+                    String fechaEmision = rs.getString("fecha_emision");
 
+                    // Mostrar los datos de la factura en un cuadro de diálogo
+                    JOptionPane.showMessageDialog(null,
+                            "Factura emitida:\n"
+                            + "Cliente: " + nombre + " " + apellido + "\n"
+                            + "NIT: " + nit + "\n"
+                            + "Dirección: " + direccion + "\n"
+                            + "Teléfono: " + telefono + "\n"
+                            + "Detalles: " + detallesFactura + "\n"
+                            + "Monto Total: Q" + montoTotal + "\n"
+                            + "Fecha de Emisión: " + fechaEmision,
+                            "Factura Emitida",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.", "Error", JOptionPane.WARNING_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        }
-        
+
     }//GEN-LAST:event_btnEmitirFacturaActionPerformed
+
+    private void btcExportarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcExportarReporteActionPerformed
+        ExportarReporte exportar = new ExportarReporte();
+        String qry = Utils.leerQueryDesdeArchivo("reporte-facturas.sql");
+        exportar.exportarPdfComoTabla(qry, "Reporte Facturas.pdf", "Facturas: ");
+    }//GEN-LAST:event_btcExportarReporteActionPerformed
 
     /**
      * @param args the command line arguments
      */
- 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnModificar;
+    private javax.swing.JButton btcExportarReporte;
     private javax.swing.JButton btnEmitirFactura;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Formularios;
-import Conexion.Conexion;
+package formularios;
+
+import conexion.Conexion;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,17 +12,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import javax.swing.JOptionPane;
+import reportes.ExportarReporte;
+import utils.Utils;
+
 /**
  *
  * @author hecto
  */
 public class Habitaciones extends javax.swing.JInternalFrame {
-Connection conn = null;
+
+    Connection conn = null;
     Conexion Conect = new Conexion();
     String qry = "";
     ResultSet rs = null;
     PreparedStatement pr = null;
-   
+
     public Habitaciones() {
         initComponents();
     }
@@ -58,6 +63,7 @@ Connection conn = null;
         jScrollPane1 = new javax.swing.JScrollPane();
         txtdescripcion = new javax.swing.JTextArea();
         cbTipoHabitacion = new javax.swing.JComboBox<>();
+        btcExportarReporte = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -124,6 +130,13 @@ Connection conn = null;
 
         cbTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "Doble", "Suite", " " }));
 
+        btcExportarReporte.setText("Generar Reporte");
+        btcExportarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcExportarReporteActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -146,7 +159,10 @@ Connection conn = null;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(213, 213, 213)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,35 +188,33 @@ Connection conn = null;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtidHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNumeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNumeroHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(125, 125, 125)
                         .addComponent(BtnGuardar)
-                        .addGap(32, 32, 32)
+                        .addGap(49, 49, 49)
                         .addComponent(BtnModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnConsultar))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnEliminar)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnConsultar)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(213, 213, 213)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(301, 301, 301)
+                        .addComponent(btcExportarReporte)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addGap(40, 40, 40)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtidHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,13 +246,15 @@ Connection conn = null;
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69))
+                    .addComponent(BtnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnGuardar)
+                    .addComponent(BtnEliminar)
+                    .addComponent(BtnConsultar))
+                .addGap(46, 46, 46)
+                .addComponent(btcExportarReporte)
+                .addGap(63, 63, 63))
         );
 
         pack();
@@ -247,201 +263,217 @@ Connection conn = null;
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
         // TODO add your handling code here: guardar de
         try {
-        conn = Conect.getConnection();
-        
-        if (conn != null) {
-            String qry = "INSERT INTO habitaciones (numero_habitacion, tipo_habitacion, descripcion, precio_noche, capacidad, estado_habitacion) VALUES (?,?,?,?,?,?)";
-            PreparedStatement pr = conn.prepareStatement(qry);
-            
-            // Asigna los valores
-            pr.setString(1, txtNumeroHabitacion.getText());
-            pr.setString(2, cbTipoHabitacion.getSelectedItem().toString());
-            pr.setString(3, txtdescripcion.getText());
-            
-            // Manejo del precio con BigDecimal, con un catch para evitar errores de formato
-            try {
-                pr.setBigDecimal(4, new BigDecimal(txtprecioNoche.getText().replace(",", ".")));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor, ingresa un valor válido para el precio.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            pr.setInt(5, Integer.parseInt(txtCapacidad.getText())); // Convertir a entero
-            
-            // Convertir el estado de la habitación a entero (0 o 1)
-            pr.setInt(6, Integer.parseInt(cbEstadoHabitacion.getSelectedItem().toString())); 
+            conn = Conect.getConnection();
 
-            int rowsAffected = pr.executeUpdate();  
+            if (conn != null) {
+                String qry = "INSERT INTO habitaciones (numero_habitacion, tipo_habitacion, descripcion, precio_noche, capacidad, estado_habitacion) VALUES (?,?,?,?,?,?)";
+                PreparedStatement pr = conn.prepareStatement(qry);
 
-            // Verificación para saber si la habitación fue guardada
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "La habitación ha sido registrada exitosamente.");
-                
-                // Limpiar campos del formulario
-                txtNumeroHabitacion.setText("");
-                cbTipoHabitacion.setSelectedIndex(0);
-                txtdescripcion.setText("");
-                txtprecioNoche.setText("");
-                txtCapacidad.setText("");
-                cbEstadoHabitacion.setSelectedIndex(0);
+                // Asigna los valores
+                pr.setString(1, txtNumeroHabitacion.getText());
+                pr.setString(2, cbTipoHabitacion.getSelectedItem().toString());
+                pr.setString(3, txtdescripcion.getText());
+
+                // Manejo del precio con BigDecimal, con un catch para evitar errores de formato
+                try {
+                    pr.setBigDecimal(4, new BigDecimal(txtprecioNoche.getText().replace(",", ".")));
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingresa un valor válido para el precio.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                pr.setInt(5, Integer.parseInt(txtCapacidad.getText())); // Convertir a entero
+
+                // Convertir el estado de la habitación a entero (0 o 1)
+                pr.setInt(6, Integer.parseInt(cbEstadoHabitacion.getSelectedItem().toString()));
+
+                int rowsAffected = pr.executeUpdate();
+
+                // Verificación para saber si la habitación fue guardada
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "La habitación ha sido registrada exitosamente.");
+
+                    // Limpiar campos del formulario
+                    txtNumeroHabitacion.setText("");
+                    cbTipoHabitacion.setSelectedIndex(0);
+                    txtdescripcion.setText("");
+                    txtprecioNoche.setText("");
+                    txtCapacidad.setText("");
+                    cbEstadoHabitacion.setSelectedIndex(0);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al guardar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (conn != null) conn.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
         }
-         }
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         // TODO add your handling code here: modificar
-         try {
-        conn = Conect.getConnection(); 
-
-        if (conn != null) {
-            // Consulta SQL para actualizar una habitación existente
-            String qry = "UPDATE habitaciones SET numero_habitacion=?, tipo_habitacion=?, descripcion=?, precio_noche=?, capacidad=?, estado_habitacion=? WHERE ID_habitacion=?";
-            pr = conn.prepareStatement(qry);
-
-            // Asignamos los valores actualizados a la consulta
-            pr.setString(1, txtNumeroHabitacion.getText());
-            pr.setString(2, cbTipoHabitacion.getSelectedItem().toString());
-            pr.setString(3, txtDescripcion.getText());
-            pr.setBigDecimal(4, new BigDecimal(txtprecioNoche.getText()));
-            pr.setInt(5, Integer.parseInt(txtCapacidad.getText())); 
-            pr.setString(6, cbEstadoHabitacion.getSelectedItem().toString());
-
-            // ID de la habitación a modificar
-            pr.setInt(7, Integer.parseInt(txtidHabitacion.getText())); 
-
-            // para ejecutar la modificacion
-            int rowsAffected = pr.executeUpdate();
-
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "La habitación ha sido actualizada exitosamente.");
-                // Limpiar campos
-                txtidHabitacion.setText("");
-                txtNumeroHabitacion.setText("");
-                cbTipoHabitacion.setSelectedIndex(0);  
-                txtDescripcion.setText("");
-                txtprecioNoche.setText("");
-                txtCapacidad.setText("");
-                cbEstadoHabitacion.setSelectedIndex(0);  
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
-            }
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese valores válidos.", "Error de formato", JOptionPane.WARNING_MESSAGE);
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al modificar la habitación: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } finally {
         try {
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
+            conn = Conect.getConnection();
+
+            if (conn != null) {
+                // Consulta SQL para actualizar una habitación existente
+                String qry = "UPDATE habitaciones SET numero_habitacion=?, tipo_habitacion=?, descripcion=?, precio_noche=?, capacidad=?, estado_habitacion=? WHERE ID_habitacion=?";
+                pr = conn.prepareStatement(qry);
+
+                // Asignamos los valores actualizados a la consulta
+                pr.setString(1, txtNumeroHabitacion.getText());
+                pr.setString(2, cbTipoHabitacion.getSelectedItem().toString());
+                pr.setString(3, txtDescripcion.getText());
+                pr.setBigDecimal(4, new BigDecimal(txtprecioNoche.getText()));
+                pr.setInt(5, Integer.parseInt(txtCapacidad.getText()));
+                pr.setString(6, cbEstadoHabitacion.getSelectedItem().toString());
+
+                // ID de la habitación a modificar
+                pr.setInt(7, Integer.parseInt(txtidHabitacion.getText()));
+
+                // para ejecutar la modificacion
+                int rowsAffected = pr.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "La habitación ha sido actualizada exitosamente.");
+                    // Limpiar campos
+                    txtidHabitacion.setText("");
+                    txtNumeroHabitacion.setText("");
+                    cbTipoHabitacion.setSelectedIndex(0);
+                    txtDescripcion.setText("");
+                    txtprecioNoche.setText("");
+                    txtCapacidad.setText("");
+                    cbEstadoHabitacion.setSelectedIndex(0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                }
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese valores válidos.", "Error de formato", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
-        }
+            JOptionPane.showMessageDialog(null, "Error al modificar la habitación: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
         // TODO add your handling code here: eliminiar
-         try {
-        conn = Conect.getConnection();  
+        try {
+            conn = Conect.getConnection();
 
-        if (conn != null) {
-            String codValue = txtidHabitacion.getText(); 
+            if (conn != null) {
+                String codValue = txtidHabitacion.getText();
 
-            if (codValue != null && !codValue.trim().isEmpty()) {
-                // Consulta SQL para eliminar una habitación
-                String qry = "DELETE FROM habitaciones WHERE ID_habitacion=?";
-                pr = conn.prepareStatement(qry);
-                pr.setInt(1, Integer.parseInt(codValue)); 
+                if (codValue != null && !codValue.trim().isEmpty()) {
+                    // Consulta SQL para eliminar una habitación
+                    String qry = "DELETE FROM habitaciones WHERE ID_habitacion=?";
+                    pr = conn.prepareStatement(qry);
+                    pr.setInt(1, Integer.parseInt(codValue));
 
-                // Ejecutamos la eliminación
-                int rowsDeleted = pr.executeUpdate();
+                    // Ejecutamos la eliminación
+                    int rowsDeleted = pr.executeUpdate();
 
-                if (rowsDeleted > 0) {
-                    JOptionPane.showMessageDialog(null, "La habitación ha sido eliminada exitosamente.");
-                    // Limpiar campos
-                    txtidHabitacion.setText("");
-                    txtNumeroHabitacion.setText("");
-                    cbTipoHabitacion.setSelectedIndex(0);  
-                    txtDescripcion.setText("");
-                    txtprecioNoche.setText("");
-                    txtCapacidad.setText("");
-                    cbEstadoHabitacion.setSelectedIndex(0);  
+                    if (rowsDeleted > 0) {
+                        JOptionPane.showMessageDialog(null, "La habitación ha sido eliminada exitosamente.");
+                        // Limpiar campos
+                        txtidHabitacion.setText("");
+                        txtNumeroHabitacion.setText("");
+                        cbTipoHabitacion.setSelectedIndex(0);
+                        txtDescripcion.setText("");
+                        txtprecioNoche.setText("");
+                        txtCapacidad.setText("");
+                        cbEstadoHabitacion.setSelectedIndex(0);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la habitación: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar la habitación: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
-        }
-}
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
         // TODO add your handling code here:consultar
-         try {
-        conn = Conect.getConnection(); 
+        try {
+            conn = Conect.getConnection();
 
-        if (conn != null) {
-            String codValue = txtidHabitacion.getText();  // ID de la habitación a consultar
+            if (conn != null) {
+                String codValue = txtidHabitacion.getText();  // ID de la habitación a consultar
 
-            if (codValue != null && !codValue.trim().isEmpty()) {
-                // Consulta SQL para obtener los datos de una habitación
-                String qry = "SELECT * FROM habitaciones WHERE ID_habitacion=?";
-                pr = conn.prepareStatement(qry);
-                pr.setInt(1, Integer.parseInt(codValue));
+                if (codValue != null && !codValue.trim().isEmpty()) {
+                    // Consulta SQL para obtener los datos de una habitación
+                    String qry = "SELECT * FROM habitaciones WHERE ID_habitacion=?";
+                    pr = conn.prepareStatement(qry);
+                    pr.setInt(1, Integer.parseInt(codValue));
 
-                // Ejecutamos la consulta
-                rs = pr.executeQuery();
+                    // Ejecutamos la consulta
+                    rs = pr.executeQuery();
 
-                if (rs.next()) {
-                    // Asignamos los valores a los campos
-                    txtNumeroHabitacion.setText(rs.getString("numero_habitacion"));
-                    cbTipoHabitacion.setSelectedItem(rs.getString("tipo_habitacion"));
-                    txtDescripcion.setText(rs.getString("descripcion"));
-                    txtprecioNoche.setText(rs.getString("precio_noche"));
-                    txtCapacidad.setText(rs.getString("capacidad"));
-                    cbEstadoHabitacion.setSelectedItem(rs.getString("estado_habitacion"));
+                    if (rs.next()) {
+                        // Asignamos los valores a los campos
+                        txtNumeroHabitacion.setText(rs.getString("numero_habitacion"));
+                        cbTipoHabitacion.setSelectedItem(rs.getString("tipo_habitacion"));
+                        txtDescripcion.setText(rs.getString("descripcion"));
+                        txtprecioNoche.setText(rs.getString("precio_noche"));
+                        txtCapacidad.setText(rs.getString("capacidad"));
+                        cbEstadoHabitacion.setSelectedItem(rs.getString("estado_habitacion"));
 
-                    JOptionPane.showMessageDialog(null, "Datos de la habitación recuperados exitosamente.");
+                        JOptionPane.showMessageDialog(null, "Datos de la habitación recuperados exitosamente.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pr != null) {
+                    pr.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (pr != null) pr.close();
-            if (conn != null) conn.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     }//GEN-LAST:event_BtnConsultarActionPerformed
 
@@ -450,13 +482,19 @@ Connection conn = null;
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-  
+    private void btcExportarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcExportarReporteActionPerformed
+        ExportarReporte exportar = new ExportarReporte();
+        String qry = Utils.leerQueryDesdeArchivo("reporte-habitaciones.sql");
+        exportar.exportarPdfComoTabla(qry, "Reporte Habitaciones.pdf", "Habitaciones: ");
+    }//GEN-LAST:event_btcExportarReporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnModificar;
+    private javax.swing.JButton btcExportarReporte;
     private javax.swing.JComboBox<String> cbEstadoHabitacion;
     private javax.swing.JComboBox<String> cbTipoHabitacion;
     private javax.swing.JLabel jLabel11;
