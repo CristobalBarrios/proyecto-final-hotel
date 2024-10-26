@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Formularios;
+
 import Conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,17 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author hecto
  */
 public class Clientes extends javax.swing.JInternalFrame {
-Connection conn = null;
+
+    Connection conn = null;
     Conexion Conect = new Conexion();
     String qry = "";
     ResultSet rs = null;
     PreparedStatement pst = null;
-    
+
     public Clientes() {
         initComponents();
     }
@@ -274,209 +277,219 @@ Connection conn = null;
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
         // TODO add your handling code here: guardar de
-      try {
-    conn = Conect.getConnection();
-    if (conn != null) {
-        // Consulta SQL ajustada para incluir el campo 'codigo'
-        qry = "INSERT INTO cliente(nombre, apellido, ciudad, direccion, correo, telefono,nit, fecha_registro) VALUES (?,?,?,?,?,?,?,?)";
-        PreparedStatement pr = conn.prepareStatement(qry);
-        
-        // Asigna los valores
-        pr.setString(1, txtnombre.getText());
-        pr.setString(2, txtapellido.getText());
-        pr.setString(3, txtciudad.getText());
-        pr.setString(4, txtdireccion.getText());
-        pr.setString(5, txtcorreo.getText());
-        pr.setString(6, txttelefono.getText()); 
-        pr.setString(7, txtnit.getText());
-        pr.setDate(8, java.sql.Date.valueOf(txtfechaRegistro.getText())); 
-        
-        
+        try {
+            conn = Conect.getConnection();
+            if (conn != null) {
+                // Consulta SQL ajustada para incluir el campo 'codigo'
+                qry = "INSERT INTO cliente(nombre, apellido, ciudad, direccion, correo, telefono,nit, fecha_registro) VALUES (?,?,?,?,?,?,?,?)";
+                PreparedStatement pr = conn.prepareStatement(qry);
 
-        pr.executeUpdate();
-        JOptionPane.showMessageDialog(null, "\"Los datos del cliente han sido guardados exitosamente.");
-        
-        //Limpiar campos
-        txtnombre.setText("");
-        txtapellido.setText("");
-        txtciudad.setText("");
-        txtdireccion.setText("");
-        txtcorreo.setText("");
-        txttelefono.setText("");
-        txtnit.setText("");
-        txtfechaRegistro.setText("");
-    } else {
-        JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
-    }
-} catch (SQLException sqle) {
-    JOptionPane.showMessageDialog(null, "Error al guardar los datos: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-} catch (NumberFormatException nfe) {
-    JOptionPane.showMessageDialog(null, "Error en el formato de los datos: Verifique los valores ingresados.", "Error de formato", JOptionPane.WARNING_MESSAGE);
-} finally {
-    try {
-        if (conn != null) conn.close();
-    } catch (SQLException sqle) {
-        JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
-    }
-}
+                // Asigna los valores
+                pr.setString(1, txtnombre.getText());
+                pr.setString(2, txtapellido.getText());
+                pr.setString(3, txtciudad.getText());
+                pr.setString(4, txtdireccion.getText());
+                pr.setString(5, txtcorreo.getText());
+                pr.setString(6, txttelefono.getText());
+                pr.setString(7, txtnit.getText());
+                pr.setDate(8, java.sql.Date.valueOf(txtfechaRegistro.getText()));
+
+                String mensaje = "<html><p>"
+                        + "Los datos del cliente han sido guardados exitosamente."
+                        + "</p></html>";
+                pr.executeUpdate();
+                JOptionPane.showMessageDialog(null, mensaje);
+
+                //Limpiar campos
+                txtnombre.setText("");
+                txtapellido.setText("");
+                txtciudad.setText("");
+                txtdireccion.setText("");
+                txtcorreo.setText("");
+                txttelefono.setText("");
+                txtnit.setText("");
+                txtfechaRegistro.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, "Error al guardar los datos: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Error en el formato de los datos: Verifique los valores ingresados.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException sqle) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
         // TODO add your handling code here: modificar
-         try {
-        conn = Conect.getConnection(); 
-        String codValue = txtidCliente.getText();  
-        
-        // Verificamos que la conexión y el valor del código sean válidos
-        if (conn != null && !codValue.isEmpty()) {
-            // Query para actualizar los datos en la tabla 'cliente'
-            qry = "UPDATE cliente SET nombre=?, apellido=?, ciudad=?, direccion=?, correo=?, telefono=?, nit=?, fecha_registro=? WHERE id_cliente=?";
-            
-            
-            PreparedStatement pr = conn.prepareStatement(qry);
-            
-            // Asignamos los valores actualizados
-            pr.setString(1, txtnombre.getText());
-            pr.setString(2, txtapellido.getText());
-            pr.setString(3, txtciudad.getText());
-            pr.setString(4, txtdireccion.getText());
-            pr.setString(5, txtcorreo.getText());
-            pr.setString(6, txttelefono.getText());
-            pr.setString(7, txtnit.getText());
-            pr.setString(8, txtfechaRegistro.getText());
-            pr.setInt(9, Integer.parseInt(codValue));
-            
-            // Ejecutamos la actualización
-            pr.executeUpdate();
-            
-            // Mostramos un mensaje de confirmación
-            JOptionPane.showMessageDialog(null, "Los datos del cliente han sido actualizados exitosamente.");
-            
-            // Limpiar todos los campos después de la modificación
-            txtnombre.setText("");
-            txtapellido.setText("");
-            txtciudad.setText("");
-            txtdireccion.setText("");
-            txtcorreo.setText("");
-            txttelefono.setText("");
-            txtnit.setText("");
-            txtfechaRegistro.setText("");
-            txtidCliente.setText("");
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un id válido para actualizar.");
-        }
-    } catch (SQLException sqle) {
-        // Manejamos cualquier error en SQL
-        System.out.println(sqle.getMessage());
-    } finally {
-        // Cerramos la conexión en el bloque 'finally'
         try {
-            if (conn != null) conn.close();
+            conn = Conect.getConnection();
+            String codValue = txtidCliente.getText();
+
+            // Verificamos que la conexión y el valor del código sean válidos
+            if (conn != null && !codValue.isEmpty()) {
+                // Query para actualizar los datos en la tabla 'cliente'
+                qry = "UPDATE cliente SET nombre=?, apellido=?, ciudad=?, direccion=?, correo=?, telefono=?, nit=?, fecha_registro=? WHERE id_cliente=?";
+
+                PreparedStatement pr = conn.prepareStatement(qry);
+
+                // Asignamos los valores actualizados
+                pr.setString(1, txtnombre.getText());
+                pr.setString(2, txtapellido.getText());
+                pr.setString(3, txtciudad.getText());
+                pr.setString(4, txtdireccion.getText());
+                pr.setString(5, txtcorreo.getText());
+                pr.setString(6, txttelefono.getText());
+                pr.setString(7, txtnit.getText());
+                pr.setString(8, txtfechaRegistro.getText());
+                pr.setInt(9, Integer.parseInt(codValue));
+
+                // Ejecutamos la actualización
+                pr.executeUpdate();
+
+                // Mostramos un mensaje de confirmación
+                JOptionPane.showMessageDialog(null, "Los datos del cliente han sido actualizados exitosamente.");
+
+                // Limpiar todos los campos después de la modificación
+                txtnombre.setText("");
+                txtapellido.setText("");
+                txtciudad.setText("");
+                txtdireccion.setText("");
+                txtcorreo.setText("");
+                txttelefono.setText("");
+                txtnit.setText("");
+                txtfechaRegistro.setText("");
+                txtidCliente.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un id válido para actualizar.");
+            }
         } catch (SQLException sqle) {
+            // Manejamos cualquier error en SQL
             System.out.println(sqle.getMessage());
+        } finally {
+            // Cerramos la conexión en el bloque 'finally'
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+            }
         }
-}
 
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
         // TODO add your handling code here: eliminiar 
-         try {
-        conn = Conect.getConnection();  
-        String codValue = txtidCliente.getText();
-        
-        // Verificar la conexion
-        if (conn != null && !codValue.isEmpty()) {
-            // Verificamos si el ID es numérico
-            try {
-                int idCliente = Integer.parseInt(codValue);
-                
-                // Query para eliminar el registro en la tabla 'cliente'
-                qry = "DELETE FROM cliente WHERE id_cliente=?";  
-                
-                
-                PreparedStatement pr = conn.prepareStatement(qry);
-                
-                // Asignamos el valor del ID que se debe eliminar
-                pr.setInt(1, idCliente);
-                
-                // Ejecutamos la eliminación
-                int rowsAffected = pr.executeUpdate();
-                
-                // Verificamos si se eliminó algún registro
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado exitosamente.");
-                    
-                   
-                    txtidCliente.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con el ID proporcionado.");
-                }
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "El ID debe ser un valor numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido para eliminar.", "Error de validación", JOptionPane.WARNING_MESSAGE);
-        }
-    } catch (SQLException sqle) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar los datos: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } finally {
         try {
-            if (conn != null) conn.close();
+            conn = Conect.getConnection();
+            String codValue = txtidCliente.getText();
+
+            // Verificar la conexion
+            if (conn != null && !codValue.isEmpty()) {
+                // Verificamos si el ID es numérico
+                try {
+                    int idCliente = Integer.parseInt(codValue);
+
+                    // Query para eliminar el registro en la tabla 'cliente'
+                    qry = "DELETE FROM cliente WHERE id_cliente=?";
+
+                    PreparedStatement pr = conn.prepareStatement(qry);
+
+                    // Asignamos el valor del ID que se debe eliminar
+                    pr.setInt(1, idCliente);
+
+                    // Ejecutamos la eliminación
+                    int rowsAffected = pr.executeUpdate();
+
+                    // Verificamos si se eliminó algún registro
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado exitosamente.");
+
+                        txtidCliente.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con el ID proporcionado.");
+                    }
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "El ID debe ser un valor numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido para eliminar.", "Error de validación", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al eliminar los datos: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException sqle) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
- 
-         }
 
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarActionPerformed
         // TODO add your handling code here:consultar
         try {
-        conn = Conect.getConnection(); 
-        String sql = "SELECT * FROM cliente WHERE id_cliente=?";  
-        
-        // Preparamos el query
-        PreparedStatement pst = conn.prepareStatement(sql);
-        
-        // ID a consultar
-        pst.setInt(1, Integer.parseInt(txtidCliente.getText()));
-        
-        ResultSet rs = pst.executeQuery();
+            conn = Conect.getConnection();
+            String sql = "SELECT * FROM cliente WHERE id_cliente=?";
 
-        // Verificamos si se encontraron datos
-        if (rs.next()) {
-            // Asignamos los valores recuperados a los campos de texto
-            txtnombre.setText(rs.getString("nombre"));
-            txtapellido.setText(rs.getString("apellido"));
-            txtciudad.setText(rs.getString("ciudad"));
-            txtdireccion.setText(rs.getString("direccion")); 
-            txtcorreo.setText(rs.getString("correo"));  // 
-            txttelefono.setText(rs.getString("telefono"));
-            txtnit.setText(rs.getString("nit"));  // 
-            txtfechaRegistro.setText(new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("fecha_registro")));
+            // Preparamos el query
+            PreparedStatement pst = conn.prepareStatement(sql);
 
-            JOptionPane.showMessageDialog(null, "Datos del cliente recuperados exitosamente.");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontraron datos para el ID especificado.");
+            // ID a consultar
+            pst.setInt(1, Integer.parseInt(txtidCliente.getText()));
+
+            ResultSet rs = pst.executeQuery();
+
+            // Verificamos si se encontraron datos
+            if (rs.next()) {
+                // Asignamos los valores recuperados a los campos de texto
+                txtnombre.setText(rs.getString("nombre"));
+                txtapellido.setText(rs.getString("apellido"));
+                txtciudad.setText(rs.getString("ciudad"));
+                txtdireccion.setText(rs.getString("direccion"));
+                txtcorreo.setText(rs.getString("correo"));  // 
+                txttelefono.setText(rs.getString("telefono"));
+                txtnit.setText(rs.getString("nit"));  // 
+                txtfechaRegistro.setText(new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("fecha_registro")));
+
+                JOptionPane.showMessageDialog(null, "Datos del cliente recuperados exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron datos para el ID especificado.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        } finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + ex.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        
-        try {
-            if (rs != null) rs.close();
-            if (pst != null) pst.close();
-            if (conn != null) conn.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + ex.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
-        }
-}
 
-        
+
     }//GEN-LAST:event_BtnConsultarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -487,7 +500,7 @@ Connection conn = null;
     /**
      * @param args the command line arguments
      */
- 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnConsultar;
     private javax.swing.JButton BtnEliminar;

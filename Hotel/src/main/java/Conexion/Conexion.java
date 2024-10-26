@@ -24,7 +24,7 @@ public class Conexion {
 
     // Constructor que carga los datos de la conexión desde el archivo properties
     public Conexion() {
-        try (InputStream in = Files.newInputStream(FileSystems.getDefault().getPath("C:\\Users\\hecto\\OneDrive\\Documentos\\NetBeansProjects\\Hotel\\src\\main\\java\\properties\\BD.properties"))) {
+        try (InputStream in = Files.newInputStream(FileSystems.getDefault().getPath("src\\main\\java\\properties\\BD.properties"))) {
             Properties props = new Properties();
             props.load(in);
             

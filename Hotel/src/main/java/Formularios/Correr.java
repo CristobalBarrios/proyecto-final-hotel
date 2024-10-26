@@ -124,7 +124,10 @@ public class Correr extends javax.swing.JFrame {
     menu2.setVisible(true);
     this.dispose(); // Cierra la ventana actual
     } else {
-    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+        String mensaje = "<html><p>"
+                        + "Usuario o contraseña incorrectos"
+                        + "</p></html>";
+    JOptionPane.showMessageDialog(null, mensaje);
     }
 
         rs.close();
