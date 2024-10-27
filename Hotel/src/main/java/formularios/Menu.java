@@ -4,14 +4,19 @@
  */
 package formularios;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Hector Lopez
  */
 public class Menu extends javax.swing.JFrame {
-        
-    
+
+    Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\java\\resources\\favicon.png");
+
     public Menu() {
+        setIconImage(icon);
         initComponents();
     }
 
@@ -38,6 +43,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hotel");
 
         detokAD.setPreferredSize(new java.awt.Dimension(750, 575));
 
@@ -146,14 +152,14 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-         Clientes client = new Clientes();
+        Clientes client = new Clientes();
         detokAD.add(client);
         client.show();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-         Habitaciones habitacion = new Habitaciones();
+        Habitaciones habitacion = new Habitaciones();
         detokAD.add(habitacion);
         habitacion.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -164,13 +170,13 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-         Reservaciones reserv = new Reservaciones();
+        Reservaciones reserv = new Reservaciones();
         detokAD.add(reserv);
         reserv.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-    Factura fact = new Factura();
+        Factura fact = new Factura();
         detokAD.add(fact);
         fact.show();
     }//GEN-LAST:event_jMenuItem6ActionPerformed

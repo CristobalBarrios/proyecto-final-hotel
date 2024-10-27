@@ -47,21 +47,29 @@ public class ExportarReporte {
                     //Ejecuta la consulta
                     ResultSet rs = pst.executeQuery();
                     ResultSetMetaData metaData = rs.getMetaData();
-                    int columnCount = metaData.getColumnCount();
+                    int numeroDeColumnas = metaData.getColumnCount();
 
                     // Crear tabla con una cantidad de columnas dinámica
-                    PdfPTable table = new PdfPTable(columnCount);
+                    PdfPTable table = new PdfPTable(numeroDeColumnas);
+                    table.setWidthPercentage(100);
+                    Font fuenteEncabezado = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
 
                     // Agrega encabezados dinámicamente según los metadatos del ResultSet
-                    for (int i = 1; i <= columnCount; i++) {
-                        table.addCell(metaData.getColumnLabel(i));
+                    for (int i = 1; i <= numeroDeColumnas; i++) {
+                        PdfPCell celdaEncabezado = new PdfPCell();
+                        celdaEncabezado.setPhrase(new com.itextpdf.text.Phrase(metaData.getColumnLabel(i), fuenteEncabezado));
+                        celdaEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER); // Alinear el encabezado al centro
+                        table.addCell(celdaEncabezado);
                     }
+
+                    Font fuenteDatos = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
                     // Agrega filas dinámicamente según los metadatos del ResultSet
                     while (rs.next()) {
-                        for (int i = 1; i <= columnCount; i++) {
-                            String cellValue = rs.getString(i);
-                            table.addCell(cellValue != null ? cellValue : ""); // Maneja valores nulos
+                        for (int i = 1; i <= numeroDeColumnas; i++) {
+                            PdfPCell celdaDato = new PdfPCell();
+                            celdaDato.setPhrase(new com.itextpdf.text.Phrase(rs.getString(i), fuenteDatos));
+                            table.addCell(celdaDato);
                         }
                     }
 

@@ -74,7 +74,6 @@ public class Reservaciones extends javax.swing.JInternalFrame {
         jMenu3.setText("Edit");
         jMenuBar2.add(jMenu3);
 
-        setTitle("Reservaciones");
         setPreferredSize(new java.awt.Dimension(750, 550));
 
         jLabel6.setText("Fecha Reserva");
@@ -202,9 +201,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                                     .addGap(21, 21, 21)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtfechaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(txtidHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(2, 2, 2))))))
+                                        .addComponent(txtidHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
@@ -304,11 +301,11 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                 if (rs.next()) {
                     int estadoDisponible = rs.getInt("estado_habitacion");
                     if (estadoDisponible == 0) {  // Verificar si está ocupada
-                        JOptionPane.showMessageDialog(null, "La habitación está ocupada y no se puede reservar.", "Error de reservación", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La habitación está ocupada y no se puede reservar."), "Error de reservación", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "La habitación no existe.", "Error de reservación", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La habitación no existe."), "Error de reservación", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -325,7 +322,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                 int count = rs.getInt(1);
 
                 if (count > 0) {
-                    JOptionPane.showMessageDialog(null, "La habitación ya está reservada en ese rango de fechas.", "Error de reservación", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La habitación ya está reservada en ese rango de fechas."), "Error de reservación", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -353,7 +350,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     pst.setInt(1, idHabitacion);
                     pst.executeUpdate();
 
-                    JOptionPane.showMessageDialog(null, "La reservación ha sido registrada exitosamente.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La reservación ha sido registrada exitosamente."));
 
                     // Limpiamos los campos del formulario
                     txtidCliente.setText("");
@@ -365,12 +362,12 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     cbestadoReserva.setSelectedIndex(0);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al conectar con la base de datos."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la reservación: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al guardar la reservación: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Formato de fecha inválido. Use el formato YYYY-MM-DD.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Formato de fecha inválido. Use el formato YYYY-MM-DD."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } finally {
             try {
                 if (pst != null) {
@@ -380,7 +377,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     conn.close();  // Cerramos la conexión
                 }
             } catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión: " + sqle.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnGuardarActionPerformed
@@ -413,7 +410,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
 
                 // Verificamos si la actualización fue exitosa
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "La reservación ha sido actualizada exitosamente.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La reservación ha sido actualizada exitosamente."));
 
                     // Limpiamos los campos del formulario
                     // Limpiamos los campos del formulario
@@ -425,15 +422,15 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     cbnoHuesped.setSelectedIndex(0);
                     cbestadoReserva.setSelectedIndex(0);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna reservación con el ID proporcionado.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna reservación con el ID proporcionado."));
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al conectar con la base de datos."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos para el ID del cliente, ID de la habitación y número de huéspedes.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese valores numéricos válidos para el ID del cliente, ID de la habitación y número de huéspedes."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al modificar la reservación: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al modificar la reservación: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             // Cerramos la conexión en el bloque 'finally'
             try {
@@ -441,7 +438,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión: " + sqle.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnModificarActionPerformed
@@ -466,7 +463,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     int rowsDeleted = pr.executeUpdate();
 
                     if (rowsDeleted > 0) {
-                        JOptionPane.showMessageDialog(null, "La reservación ha sido eliminada de manera satisfactoria.");
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La reservación ha sido eliminada de manera satisfactoria."));
 
                         // Limpiar los campos de texto después de eliminar
                         txtidCliente.setText("");
@@ -478,16 +475,16 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                         cbestadoReserva.setSelectedIndex(0);
                         txtidReservacion.setText("");
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró ninguna reservación con el ID proporcionado.");
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna reservación con el ID proporcionado."));
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido para eliminar.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID válido para eliminar."));
                 }
             }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar la reservación: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al eliminar la reservación: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "El ID debe ser un valor numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("El ID debe ser un valor numérico válido."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } finally {
             // Cerramos la conexión en el bloque 'finally'
             try {
@@ -495,7 +492,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión: " + sqle.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnEliminarActionPerformed
@@ -528,15 +525,15 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     cbnoHuesped.setSelectedItem(rs.getString("numero_huespedes"));
                     cbestadoReserva.setSelectedItem(rs.getString("estado_reserva"));
 
-                    JOptionPane.showMessageDialog(null, "Datos de la reservación recuperados exitosamente.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Datos de la reservación recuperados exitosamente."));
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna reservación con el ID especificado.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna reservación con el ID especificado."));
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID válido."));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los datos.", "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al consultar los datos."), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (rs != null) {
@@ -549,7 +546,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
 

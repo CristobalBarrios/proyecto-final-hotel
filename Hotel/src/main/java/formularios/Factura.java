@@ -286,7 +286,7 @@ public class Factura extends javax.swing.JInternalFrame {
                 pr.setBigDecimal(3, new BigDecimal(txtmontoTotal.getText()));
                 pr.setString(4, txtdetalleFactura.getText());
                 pr.executeUpdate();
-                JOptionPane.showMessageDialog(null, "La factura ha sido guardada exitosamente.");
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("La factura ha sido guardada exitosamente."));
 
                 // Limpiar campos del formulario
                 txtidReservacion.setText("");
@@ -294,19 +294,19 @@ public class Factura extends javax.swing.JInternalFrame {
                 txtmontoTotal.setText("");
                 txtdetalleFactura.setText("");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al conectar con la base de datos."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la factura: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al guardar la factura: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Error en el formato de los datos: Verifique los valores ingresados.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error en el formato de los datos: Verifique los valores ingresados."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al cerrar la conexión: " + sqle.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -335,15 +335,15 @@ public class Factura extends javax.swing.JInternalFrame {
                 int rowsAffected = pr.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Factura modificada exitosamente.");
+                    JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Factura modificada exitosamente."));
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                    JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("No se encontró ninguna factura con ese ID."));
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Por favor, ingrese un ID de factura válido."));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error en la base de datos: " + e.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (pr != null) {
@@ -353,7 +353,7 @@ public class Factura extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al cerrar la conexión."), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -375,7 +375,7 @@ public class Factura extends javax.swing.JInternalFrame {
                 int rowsAffected = pr.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Factura eliminada exitosamente.");
+                    JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Factura eliminada exitosamente."));
                     // Limpiar los campos después de la eliminación
                     txtidReservacion.setText("");
                     txtidCliente.setText("");
@@ -383,13 +383,13 @@ public class Factura extends javax.swing.JInternalFrame {
                     txtfechaEmision.setText("");
                     txtdetalleFactura.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna factura con ese ID."));
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID de factura válido."));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error en la base de datos: " + e.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (pr != null) {
@@ -399,7 +399,7 @@ public class Factura extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión."), "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -429,15 +429,15 @@ public class Factura extends javax.swing.JInternalFrame {
                     txtfechaEmision.setText(rs.getString("fecha_emision"));
                     txtdetalleFactura.setText(rs.getString("detalles_factura"));
 
-                    JOptionPane.showMessageDialog(null, "Factura encontrada.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Factura encontrada."));
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna factura con ese ID."));
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.");
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID de factura válido."));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error en la base de datos: " + e.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (rs != null) {
@@ -450,7 +450,7 @@ public class Factura extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión."), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -508,13 +508,13 @@ public class Factura extends javax.swing.JInternalFrame {
                     );
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna factura con ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna factura con ese ID."), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de factura válido.", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID de factura válido."), "Error", JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error en la base de datos: " + e.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (rs != null) {
@@ -527,7 +527,7 @@ public class Factura extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión."), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 

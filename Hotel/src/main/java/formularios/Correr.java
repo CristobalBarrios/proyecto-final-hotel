@@ -3,23 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package formularios;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import conexion.Conexion;
+import java.awt.*;
 import java.sql.Connection;
+import utils.Utils;
+
 /**
  *
  * @author hecto
  */
 public class Correr extends javax.swing.JFrame {
+
     Connection conn = null;
     Conexion Conect = new Conexion();
     String qry = "";
-    
-    
+    Image icon = Toolkit.getDefaultToolkit().getImage("src\\main\\java\\resources\\favicon.png");
+
     public Correr() {
+        setIconImage(icon);
         initComponents();
     }
 
@@ -108,42 +114,39 @@ public class Correr extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-       
-      try {
-        conn = Conect.getConnection();  // Establecemos la conexión
 
-        // Consulta SQL para verificar usuario y contraseña
-        String qry = "SELECT * FROM usuario WHERE nombre = ? AND contrasena = ?";
-        PreparedStatement pr = conn.prepareStatement(qry);
-        pr.setString(1, txtusuario.getText());
-        pr.setString(2, new String(txtcontra.getPassword()));
-
-    ResultSet rs = pr.executeQuery();
-
-    if (rs.next()) {
-    JOptionPane.showMessageDialog(null, "¡Hola! Bienvenido 😊 : " + txtusuario.getText());
-    Menu menu2 = new Menu();
-    menu2.setVisible(true);
-    this.dispose(); // Cierra la ventana actual
-    } else {
-        String mensaje = "<html><p>"
-                        + "Usuario o contraseña incorrectos"
-                        + "</p></html>";
-    JOptionPane.showMessageDialog(null, mensaje);
-    }
-
-        rs.close();
-        pr.close();
-    } catch (SQLException sqle) {
-        sqle.printStackTrace();
-    } finally {
         try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
+            conn = Conect.getConnection();  // Establecemos la conexión
+
+            // Consulta SQL para verificar usuario y contraseña
+            String qry = "SELECT * FROM usuario WHERE nombre = ? AND contrasena = ?";
+            PreparedStatement pr = conn.prepareStatement(qry);
+            pr.setString(1, txtusuario.getText());
+            pr.setString(2, new String(txtcontra.getPassword()));
+
+            ResultSet rs = pr.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("¡Hola! Bienvenido 😊 : " + txtusuario.getText()));
+                Menu menu2 = new Menu();
+                menu2.setVisible(true);
+                this.dispose(); // Cierra la ventana actual
+            } else {
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Usuario o contraseña incorrectos"));
             }
+
+            rs.close();
+            pr.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-        }
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
         }
 
     }//GEN-LAST:event_btnloginActionPerformed

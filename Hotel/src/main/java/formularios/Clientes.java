@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import reportes.ExportarReporte;
 import utils.Utils;
@@ -56,7 +57,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtdireccion = new javax.swing.JTextField();
-        txtfechaRegistro = new javax.swing.JTextField();
+        txtFechaRegistro = new javax.swing.JTextField();
         txtidCliente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txttelefono = new javax.swing.JTextField();
@@ -199,7 +200,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtfechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(179, 179, 179)
@@ -212,11 +213,12 @@ public class Clientes extends javax.swing.JInternalFrame {
                                 .addGap(65, 65, 65)
                                 .addComponent(BtnEliminar)
                                 .addGap(81, 81, 81)
-                                .addComponent(BtnConsultar))))
+                                .addComponent(BtnConsultar)))
+                        .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(290, 290, 290)
                         .addComponent(btcExportarReporte)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,9 +260,9 @@ public class Clientes extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5)
                             .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(txtfechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnGuardar)
@@ -269,7 +271,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(BtnConsultar))
                 .addGap(39, 39, 39)
                 .addComponent(btcExportarReporte)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,7 +302,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                 pr.setString(5, txtcorreo.getText());
                 pr.setString(6, txttelefono.getText());
                 pr.setString(7, txtnit.getText());
-                pr.setDate(8, java.sql.Date.valueOf(txtfechaRegistro.getText()));
+                pr.setDate(8, java.sql.Date.valueOf(txtFechaRegistro.getText()));
 
                 pr.executeUpdate();
                 JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Los datos del cliente han sido guardados exitosamente."));
@@ -313,21 +315,21 @@ public class Clientes extends javax.swing.JInternalFrame {
                 txtcorreo.setText("");
                 txttelefono.setText("");
                 txtnit.setText("");
-                txtfechaRegistro.setText("");
+                txtFechaRegistro.setText("");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al conectar con la base de datos."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al guardar los datos: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al guardar los datos: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Error en el formato de los datos: Verifique los valores ingresados.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error en el formato de los datos: Verifique los valores ingresados."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al cerrar la conexión: " + sqle.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnGuardarActionPerformed
@@ -353,14 +355,14 @@ public class Clientes extends javax.swing.JInternalFrame {
                 pr.setString(5, txtcorreo.getText());
                 pr.setString(6, txttelefono.getText());
                 pr.setString(7, txtnit.getText());
-                pr.setString(8, txtfechaRegistro.getText());
+                pr.setString(8, txtFechaRegistro.getText());
                 pr.setInt(9, Integer.parseInt(codValue));
 
                 // Ejecutamos la actualización
                 pr.executeUpdate();
 
                 // Mostramos un mensaje de confirmación
-                JOptionPane.showMessageDialog(null, "Los datos del cliente han sido actualizados exitosamente.");
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Los datos del cliente han sido actualizados exitosamente."));
 
                 // Limpiar todos los campos después de la modificación
                 txtnombre.setText("");
@@ -370,10 +372,10 @@ public class Clientes extends javax.swing.JInternalFrame {
                 txtcorreo.setText("");
                 txttelefono.setText("");
                 txtnit.setText("");
-                txtfechaRegistro.setText("");
+                txtFechaRegistro.setText("");
                 txtidCliente.setText("");
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un id válido para actualizar.");
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Por favor, ingrese un id válido para actualizar."));
             }
         } catch (SQLException sqle) {
             // Manejamos cualquier error en SQL
@@ -416,27 +418,27 @@ public class Clientes extends javax.swing.JInternalFrame {
 
                     // Verificamos si se eliminó algún registro
                     if (rowsAffected > 0) {
-                        JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado exitosamente.");
+                        JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("El cliente ha sido eliminado exitosamente."));
 
                         txtidCliente.setText("");
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con el ID proporcionado.");
+                        JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("No se encontró ningún cliente con el ID proporcionado."));
                     }
                 } catch (NumberFormatException nfe) {
-                    JOptionPane.showMessageDialog(null, "El ID debe ser un valor numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("El ID debe ser un valor numérico válido."), "Error de formato", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido para eliminar.", "Error de validación", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Por favor, ingrese un ID válido para eliminar."), "Error de validación", JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar los datos: " + sqle.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al eliminar los datos: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + sqle.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al cerrar la conexión: " + sqle.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -467,16 +469,16 @@ public class Clientes extends javax.swing.JInternalFrame {
                 txtcorreo.setText(rs.getString("correo"));  // 
                 txttelefono.setText(rs.getString("telefono"));
                 txtnit.setText(rs.getString("nit"));  // 
-                txtfechaRegistro.setText(new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("fecha_registro")));
+                txtFechaRegistro.setText(new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("fecha_registro")));
 
-                JOptionPane.showMessageDialog(null, "Datos del cliente recuperados exitosamente.");
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Datos del cliente recuperados exitosamente."));
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontraron datos para el ID especificado.");
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("No se encontraron datos para el ID especificado."));
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID numérico válido.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Por favor, ingrese un ID numérico válido."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al consultar los datos: " + e.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
 
             try {
@@ -490,7 +492,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + ex.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, Utils.convertirMensajeHtml("Error al cerrar la conexión: " + ex.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -531,11 +533,11 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JTextField txtFechaRegistro;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtciudad;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtdireccion;
-    private javax.swing.JTextField txtfechaRegistro;
     private javax.swing.JTextField txtidCliente;
     private javax.swing.JTextField txtnit;
     private javax.swing.JTextField txtnombre;

@@ -278,7 +278,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                 try {
                     pr.setBigDecimal(4, new BigDecimal(txtprecioNoche.getText().replace(",", ".")));
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingresa un valor válido para el precio.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingresa un valor válido para el precio."), "Error de formato", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -291,7 +291,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
 
                 // Verificación para saber si la habitación fue guardada
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "La habitación ha sido registrada exitosamente.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La habitación ha sido registrada exitosamente."));
 
                     // Limpiar campos del formulario
                     txtNumeroHabitacion.setText("");
@@ -302,17 +302,17 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                     cbEstadoHabitacion.setSelectedIndex(0);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al conectar con la base de datos."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al guardar los datos: " + e.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión: " + e.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnGuardarActionPerformed
@@ -342,7 +342,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                 int rowsAffected = pr.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "La habitación ha sido actualizada exitosamente.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La habitación ha sido actualizada exitosamente."));
                     // Limpiar campos
                     txtidHabitacion.setText("");
                     txtNumeroHabitacion.setText("");
@@ -352,13 +352,13 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                     txtCapacidad.setText("");
                     cbEstadoHabitacion.setSelectedIndex(0);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna habitación con el ID proporcionado."));
                 }
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese valores válidos.", "Error de formato", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese valores válidos."), "Error de formato", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar la habitación: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al modificar la habitación: " + e.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (pr != null) {
@@ -368,7 +368,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión: " + e.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnModificarActionPerformed
@@ -391,7 +391,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                     int rowsDeleted = pr.executeUpdate();
 
                     if (rowsDeleted > 0) {
-                        JOptionPane.showMessageDialog(null, "La habitación ha sido eliminada exitosamente.");
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("La habitación ha sido eliminada exitosamente."));
                         // Limpiar campos
                         txtidHabitacion.setText("");
                         txtNumeroHabitacion.setText("");
@@ -401,14 +401,14 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                         txtCapacidad.setText("");
                         cbEstadoHabitacion.setSelectedIndex(0);
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna habitación con el ID proporcionado."));
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID válido."));
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar la habitación: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al eliminar la habitación: " + e.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (pr != null) {
@@ -418,7 +418,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión: " + e.getMessage()), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnEliminarActionPerformed
@@ -449,16 +449,16 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                         txtCapacidad.setText(rs.getString("capacidad"));
                         cbEstadoHabitacion.setSelectedItem(rs.getString("estado_habitacion"));
 
-                        JOptionPane.showMessageDialog(null, "Datos de la habitación recuperados exitosamente.");
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Datos de la habitación recuperados exitosamente."));
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró ninguna habitación con el ID proporcionado.");
+                        JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("No se encontró ninguna habitación con el ID proporcionado."));
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese un ID válido."));
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al consultar los datos: " + e.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (rs != null) {
@@ -471,7 +471,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión.", "Error de conexión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al cerrar la conexión."), "Error de conexión", JOptionPane.ERROR_MESSAGE);
             }
         }
 
