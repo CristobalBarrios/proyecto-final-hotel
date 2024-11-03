@@ -29,6 +29,7 @@ public class Clientes extends javax.swing.JInternalFrame {
 
     public Clientes() {
         initComponents();
+        setFrameIcon(null);
     }
 
     /**
@@ -99,9 +100,9 @@ public class Clientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Correo Electronico:");
+        jLabel6.setText("Correo Electrónico:");
 
-        jLabel1.setText("Nombres  :");
+        jLabel1.setText("Nombres :");
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel10.setText("                   Clientes");
@@ -120,7 +121,7 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jLabel9.setText("ID Cliente");
 
-        jLabel4.setText("Direccion:");
+        jLabel4.setText("Dirección:");
 
         txtidCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +129,7 @@ public class Clientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("Telefono :");
+        jLabel5.setText("Teléfono:");
 
         jLabel8.setText("NIT");
 
@@ -213,12 +214,11 @@ public class Clientes extends javax.swing.JInternalFrame {
                                 .addGap(65, 65, 65)
                                 .addComponent(BtnEliminar)
                                 .addGap(81, 81, 81)
-                                .addComponent(BtnConsultar)))
-                        .addGap(40, 40, 40))
+                                .addComponent(BtnConsultar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(290, 290, 290)
                         .addComponent(btcExportarReporte)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +271,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(BtnConsultar))
                 .addGap(39, 39, 39)
                 .addComponent(btcExportarReporte)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -355,7 +355,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                 pr.setString(5, txtcorreo.getText());
                 pr.setString(6, txttelefono.getText());
                 pr.setString(7, txtnit.getText());
-                pr.setString(8, txtFechaRegistro.getText());
+                pr.setDate(8, java.sql.Date.valueOf(txtFechaRegistro.getText()));
                 pr.setInt(9, Integer.parseInt(codValue));
 
                 // Ejecutamos la actualización

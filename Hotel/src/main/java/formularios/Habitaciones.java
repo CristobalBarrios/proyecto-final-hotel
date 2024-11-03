@@ -76,7 +76,7 @@ public class Habitaciones extends javax.swing.JInternalFrame {
 
         setPreferredSize(new java.awt.Dimension(750, 550));
 
-        txtDescripcion.setText("Descripcion");
+        txtDescripcion.setText("Descripción");
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -110,11 +110,11 @@ public class Habitaciones extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel12.setText(" ID Habitacion");
+        jLabel12.setText(" ID Habitación");
 
-        jLabel13.setText("Numero Habitacion");
+        jLabel13.setText("Numero Habitación");
 
-        jLabel14.setText("Tipo Habitacion");
+        jLabel14.setText("Tipo Habitación");
 
         txtPrecioNoche.setText("Precio Por Noche");
 

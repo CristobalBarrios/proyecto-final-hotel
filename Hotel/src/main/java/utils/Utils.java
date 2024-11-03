@@ -26,7 +26,7 @@ public class Utils {
     public static String convertirMensajeHtml(String mensaje) {
         mensaje = "<html><p>"
                 + mensaje
-                + "</p></html>";
+                + "</p></htadminml>";
         return mensaje;
     }
 }

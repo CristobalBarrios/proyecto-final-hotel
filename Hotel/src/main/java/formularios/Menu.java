@@ -55,7 +55,7 @@ public class Menu extends javax.swing.JFrame {
         );
         detokADLayout.setVerticalGroup(
             detokADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 671, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Opcion");
@@ -142,23 +142,23 @@ public class Menu extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(detokAD, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
+                .addComponent(detokAD, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(914, 707));
+        setSize(new java.awt.Dimension(914, 657));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        //detokAD.removeAll();
         Clientes client = new Clientes();
         detokAD.add(client);
         client.show();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        //detokAD.removeAll();
         Habitaciones habitacion = new Habitaciones();
         detokAD.add(habitacion);
         habitacion.show();
@@ -169,13 +169,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        //detokAD.removeAll();
         Reservaciones reserv = new Reservaciones();
         detokAD.add(reserv);
         reserv.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        //detokAD.removeAll();
         Factura fact = new Factura();
         detokAD.add(fact);
         fact.show();

@@ -203,7 +203,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="txtDescripcion">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Descripcion"/>
+        <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
@@ -249,21 +249,21 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
-        <Property name="text" type="java.lang.String" value=" ID Habitacion"/>
+        <Property name="text" type="java.lang.String" value=" ID Habitaci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtidHabitacion">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Numero Habitacion"/>
+        <Property name="text" type="java.lang.String" value="Numero Habitaci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNumeroHabitacion">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tipo Habitacion"/>
+        <Property name="text" type="java.lang.String" value="Tipo Habitaci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtPrecioNoche">

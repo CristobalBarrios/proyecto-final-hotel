@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import reportes.ExportarReporte;
 import utils.Utils;
@@ -96,9 +97,9 @@ public class Factura extends javax.swing.JInternalFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        jLabel10.setText("Facturacion");
+        jLabel10.setText("Facturación");
 
-        jLabel7.setText("Fecha de Emision");
+        jLabel7.setText("Fecha de Emisión");
 
         jLabel9.setText("ID Cliente");
 
@@ -108,7 +109,7 @@ public class Factura extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel11.setText("ID Reservacion");
+        jLabel11.setText("ID Reservación");
 
         jLabel12.setText("ID Factura");
 
@@ -328,7 +329,7 @@ public class Factura extends javax.swing.JInternalFrame {
                 pr.setInt(1, Integer.parseInt(txtidReservacion.getText()));
                 pr.setInt(2, Integer.parseInt(txtidCliente.getText()));
                 pr.setDouble(3, Double.parseDouble(txtmontoTotal.getText()));
-                pr.setString(4, txtfechaEmision.getText());
+                pr.setDate(4, java.sql.Date.valueOf(txtfechaEmision.getText()));
                 pr.setString(5, txtdetalleFactura.getText());
                 pr.setInt(6, Integer.parseInt(idFactura));
 
@@ -426,7 +427,7 @@ public class Factura extends javax.swing.JInternalFrame {
                     txtidReservacion.setText(rs.getString("ID_reservacion"));
                     txtidCliente.setText(rs.getString("ID_cliente"));
                     txtmontoTotal.setText(rs.getString("monto_total"));
-                    txtfechaEmision.setText(rs.getString("fecha_emision"));
+                    txtfechaEmision.setText(new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("fecha_emision")));
                     txtdetalleFactura.setText(rs.getString("detalles_factura"));
 
                     JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Factura encontrada."));

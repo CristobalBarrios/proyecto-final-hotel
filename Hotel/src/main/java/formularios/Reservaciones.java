@@ -116,7 +116,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel12.setText(" ID Reservacion");
+        jLabel12.setText(" ID Reservación");
 
         jLabel13.setText("ID Cliente");
 
@@ -126,9 +126,9 @@ public class Reservaciones extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Fecha de Salida");
 
-        jLabel3.setText("Numero Huespedes");
+        jLabel3.setText("Numero Huéspedes");
 
-        cbnoHuesped.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " 1", " 2", " 3", " 4", "5" }));
+        cbnoHuesped.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         cbnoHuesped.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbnoHuespedActionPerformed(evt);
@@ -396,11 +396,11 @@ public class Reservaciones extends javax.swing.JInternalFrame {
                 // Asignamos los valores actualizados a la consulta
                 pr.setInt(1, Integer.parseInt(txtidCliente.getText()));  // Relación con el cliente (FK)
                 pr.setInt(2, Integer.parseInt(txtidHabitacion.getText()));  // Relación con la habitación (FK)
-                pr.setString(3, txtfechaReserva.getText());  // Fecha de la reserva
-                pr.setString(4, txtfechaEntrada.getText());  // Fecha de entrada
-                pr.setString(5, txtfechaSalida.getText());  // Fecha de salida
+                pr.setDate(3, java.sql.Date.valueOf(txtfechaReserva.getText()));  // Fecha de la reserva
+                pr.setDate(4, java.sql.Date.valueOf(txtfechaEntrada.getText()));  // Fecha de entrada
+                pr.setDate(5, java.sql.Date.valueOf(txtfechaSalida.getText()));  // Fecha de salida
                 pr.setInt(6, Integer.parseInt(cbnoHuesped.getSelectedItem().toString()));  // Número de huéspedes
-                pr.setString(7, cbestadoReserva.getSelectedItem().toString());  // Estado de la reservación
+                pr.setInt(7, Integer.parseInt(cbestadoReserva.getSelectedItem().toString()));  // Estado de la reservación
 
                 // Asignamos el ID de la reservación que estamos modificando
                 pr.setInt(8, Integer.parseInt(txtidReservacion.getText()));  // ID de la reservación (PK)
@@ -429,6 +429,7 @@ public class Reservaciones extends javax.swing.JInternalFrame {
             }
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Por favor, ingrese valores numéricos válidos para el ID del cliente, ID de la habitación y número de huéspedes."), "Error de formato", JOptionPane.WARNING_MESSAGE);
+            nfe.printStackTrace();
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null,  Utils.convertirMensajeHtml("Error al modificar la reservación: " + sqle.getMessage()), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         } finally {

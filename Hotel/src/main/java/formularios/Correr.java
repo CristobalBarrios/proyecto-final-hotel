@@ -27,6 +27,7 @@ public class Correr extends javax.swing.JFrame {
     public Correr() {
         setIconImage(icon);
         initComponents();
+        getRootPane().setDefaultButton(btnlogin);
     }
 
     /**
@@ -46,7 +47,7 @@ public class Correr extends javax.swing.JFrame {
         txtcontra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ingresar");
+        setTitle("Inicio de sesión");
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +64,12 @@ public class Correr extends javax.swing.JFrame {
         btnlogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnloginActionPerformed(evt);
+            }
+        });
+
+        txtcontra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcontraKeyPressed(evt);
             }
         });
 
@@ -150,6 +157,10 @@ public class Correr extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnloginActionPerformed
+
+    private void txtcontraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcontraKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcontraKeyPressed
 
     /**
      * @param args the command line arguments

@@ -232,12 +232,12 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Facturacion"/>
+        <Property name="text" type="java.lang.String" value="Facturaci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fecha de Emision"/>
+        <Property name="text" type="java.lang.String" value="Fecha de Emisi&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -252,7 +252,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID Reservacion"/>
+        <Property name="text" type="java.lang.String" value="ID Reservaci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtidReservacion">
